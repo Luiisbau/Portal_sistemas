@@ -1,0 +1,29 @@
+.avatar {
+  background-color: $primary;
+  font-size: 4rem;
+}
+.cards-dashboard {
+    display: grid;
+    gap: 1.5rem;
+    @include adaptar(768px) {
+       grid-template-columns: repeat( 3,1fr );
+    
+    }
+
+    .contenido-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      h3 {
+        text-align: center;
+      }
+      span {
+        font-size: 4rem;
+      }
+      p {
+        font-size: 2.5rem;
+      }
+    }
+}
