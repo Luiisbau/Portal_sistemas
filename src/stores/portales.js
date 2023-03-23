@@ -1,17 +1,21 @@
 import { defineStore } from 'pinia'
 import { api } from 'src/boot/axios'
 import { ref } from 'vue'
+import {ID_PORTAL} from 'src/constant/servidor'
 
 export const usePortalesStore = defineStore("portales", () =>  {
     // state de portales
     const portales = ref([])
+    const portalesPermisos = ref([])
 
 
     // metodos para manipular los portales
     const obtenerPortales = async () => {
         try {
             const { data } = await api.get('/portales')
-            portales.value = [ ...data ]
+            const portalesExternos = data.filter(element => element.idPortal != ID_PORTAL )
+            portales.value = [ ...portalesExternos ]
+            portalesPermisos.value = [...data]
         } catch (error) {
             
             console.log( error )
@@ -53,6 +57,7 @@ export const usePortalesStore = defineStore("portales", () =>  {
         obtenerPortales,
         insertarPortal,
         eliminarPortal,
-        editarNombrePortal
+        editarNombrePortal,
+        portalesPermisos
     }
 })

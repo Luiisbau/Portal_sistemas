@@ -39,6 +39,13 @@ const routes = [
         label: 'Asignar Usuarios',
         name: 'permisos',
         component: () => import(/* webpackChunkName: "" */'src/modules/permisos/PermisosPortales.vue')
+      },
+      {
+        path:'historial',
+        icono: 'history',
+        label: 'Historial de accesos',
+        name: 'historial',
+        component: () => import(/* webpackChunkName: "" */'src/modules/historialAccesso/historialAcceso.vue')
       }
     ]
   },

@@ -4,17 +4,22 @@ import { ref } from 'vue'
 
 export const useUsuarioStore = defineStore("usuarios", () => {
 
-    // const usuarioAutenticado = ref({})
+    const usuariosFiltrado = ref([])
     const usuariosActivos = ref([])
     const cargando = ref(true)
-  
-   
 
       const obtenerUsuarios = async () => {
         try {
             const { data } = await api.get('/usuarios')
-            usuariosActivos.value = data
-            console.log( usuariosActivos.value )
+            usuariosActivos.value = [...data]
+
+            usuariosFiltrado.value = data.map(empleado => {
+              console.log(empleado)
+                return {
+                  label: `${empleado.numero_empleado} - ${empleado.nombre} (${empleado.usuario})`,
+                  value: empleado
+                }
+              })
 
         } catch ( error ) {
 
@@ -25,9 +30,25 @@ export const useUsuarioStore = defineStore("usuarios", () => {
         }
       }
 
+      const editarUsuarios = async (usuario) => {
+        try {
+            await api.put('/usuarios', usuario )
+            const posicion =  usuariosActivos.value.findIndex(element => element.idUsuario === usuario.idUsuario)
+            usuariosActivos.value[posicion].usuario = usuario.usuario;
+            usuariosActivos.value[posicion].correo = usuario.correo; 
+
+        } catch ( error ) {
+          console.log( error.response.msg )
+        } finally {
+
+        }
+      }
+
       return {
         usuariosActivos,
         obtenerUsuarios,
-        cargando
+        editarUsuarios,
+        cargando,
+        usuariosFiltrado
       }
 })

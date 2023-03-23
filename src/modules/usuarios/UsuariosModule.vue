@@ -31,9 +31,9 @@
             </div>
           </div>
         </template>
-        <template v-slot:body-cell-acciones>
+        <template v-slot:body-cell-acciones="props">
           <q-td>
-            <q-btn flat color="dark" icon="edit">
+            <q-btn flat color="dark" icon="edit" @click="editarUsuario(props.row)">
               <q-tooltip> Editar Usuario </q-tooltip>
             </q-btn>
           </q-td>
@@ -41,19 +41,25 @@
       </q-table>
     </div>
   </q-layout>
+  <modal-editar-usuario ref="modalUsuario"></modal-editar-usuario>
 </template>
 
 <script>
 import { onMounted, ref } from "vue";
 import { useUsuarioStore } from "../../stores/usuarios";
 import { storeToRefs } from "pinia";
+import ModalEditarUsuario from "src/components/ModalEditarUsuario.vue";
 
 export default {
+  components:{
+    ModalEditarUsuario
+  },
   setup() {
     const useUsuario = useUsuarioStore();
     const { cargando, usuariosActivos } = storeToRefs(useUsuario);
     const { obtenerUsuarios } = useUsuario;
 
+    const modalUsuario = ref(null)
     const columns = [
     {
         name: "id",
@@ -105,25 +111,27 @@ export default {
         sortable: true,
       },
     ];
-    const filtrosUsuarios = ["Solo los activos", "Solo los dados de baja"];
 
     onMounted(() => {
       obtenerUsuarios();
     });
+
+    const editarUsuario = (data) =>{
+      modalUsuario.value.edtiarUsuario(data)
+    }
 
     return {
       pagination: {
         sortBy: 'id',
         descending: true,
         rowsPerPage: 10
-
       },
+      modalUsuario,
       columns,
       cargando,
       usuariosActivos,
-      filtrosUsuarios,
-      filtroSeleccionado: ref("Solo los activos"),
       buscar: ref(""),
+      editarUsuario
     };
   },
 };
