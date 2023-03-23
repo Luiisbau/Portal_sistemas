@@ -2,7 +2,7 @@
   <div class="contenedor-login">
     <div class="informacion-login contenedor">
       <div class="portada-login">
-        <h1>Bienvenido, <span>Portal de usuarios</span></h1>
+        <h1>Bienvenido, <span>Portal de Sistemas</span></h1>
       </div>
       <q-form
         class="bg-white formulario-login"

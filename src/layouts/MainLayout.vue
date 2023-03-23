@@ -8,7 +8,7 @@
           <q-avatar class="logo-inicio">
             <img src="../img/logog.png" />
           </q-avatar>
-          Portal de sistemas
+          Portal de Sistemas
         </q-toolbar-title>
         <q-btn flat @click="logout"> Cerrar sesión</q-btn>
       </q-toolbar>
