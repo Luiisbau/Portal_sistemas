@@ -76,9 +76,9 @@ module.exports = configure(function (/* ctx */) {
       // polyfillModulePreload: true,
       // distDir
 
-      // extendViteConf (viteConf) {},
-      // viteVuePluginOptions: {},
-
+      extendViteConf (viteConf, { isServer, isClient }) {
+        viteConf.base = 'portal_sistemas'
+      }
       
       // vitePlugins: [
       //   [ 'package-name', { ..options.. } ]
