@@ -1,8 +1,8 @@
 {
   "name": "portal-usuarios",
   "version": "0.0.1",
-  "description": "portal de usuarios para accesos y permisos Gruver",
-  "productName": "portal de usuarios",
+  "description": "Portal para accesos y permisos Gruver",
+  "productName": "Portal Sistemas",
   "author": "Azael Garcia Jaimes",
   "private": true,
   "scripts": {
