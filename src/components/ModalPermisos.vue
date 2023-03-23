@@ -71,7 +71,7 @@ export default {
   setup() {
 
     const usePortal = usePortalesStore();
-    const { portales } = storeToRefs(usePortal);
+    const {obtenerPortales} = usePortal
 
     const useUsuario = useUsuarioStore();
     const { usuariosActivos, usuariosFiltrado } = storeToRefs(useUsuario);
@@ -83,12 +83,18 @@ export default {
 
     const portal = ref(null)
     const abrirModal = ref(false);
+    const usuarioSeleccionado = ref('')
 
-    const guardarPermiso = () => {
-      insertarPermiso(permisoNuevo);
+    const guardarPermiso = async() => {
+
+      if(usuarioSeleccionado.value){
+       const {value} = usuarioSeleccionado.value
+       await insertarPermiso({usuario: value.usuario, portal: portal.value.idPortal})
+        obtenerPortales()
+       abrirModal.value = false;
+      }
     };
 
-    const usuarioSeleccionado = ref('')
 
     const abrir = (data) => {
       portal.value = data

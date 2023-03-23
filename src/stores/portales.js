@@ -18,7 +18,7 @@ export const usePortalesStore = defineStore("portales", () =>  {
             portalesPermisos.value = [...data]
         } catch (error) {
             
-            console.log( error )
+            //console.log( error )
         }
     }
     const insertarPortal = async ( portal ) => {
@@ -27,7 +27,7 @@ export const usePortalesStore = defineStore("portales", () =>  {
         portales.value = [ data, ...portales.value ]
         } catch (error) {
             
-            console.log( error )
+            //console.log( error )
         }
     }
     const eliminarPortal = async ( portal) => {
@@ -36,7 +36,7 @@ export const usePortalesStore = defineStore("portales", () =>  {
             portales.value = portales.value.filter( portalBusqueda => portalBusqueda.idPortal !== portal.idPortal )
         } catch (error) {
             
-            console.log( error )
+            //console.log( error )
         }
     }
 
@@ -48,7 +48,7 @@ export const usePortalesStore = defineStore("portales", () =>  {
             portales.value[posicion].nombrePortal = portal.nombre
         } catch (error) {
             
-            console.log( error )
+            //console.log( error )
         }
     }
 

@@ -13,19 +13,31 @@ export const usePermisoStore = defineStore("permisos", () => {
             const { data } = await api.get('/permisos')
             permisos.value = [ ...data ]
         } catch (error) {
-            console.log( error )
+            //console.log( error )
         }
     }
 
     const insertarPermiso = async ( permiso ) => {
         try {
-            const { data } = await api.post('/permisos', permiso)
-            permisos.value = [ data, ...permisos.value ]
+           const { data } = await api.post('/permisos', permiso)
+            //permisos.value = [ data, ...permisos.value ]
             
-            console.log( data )
+            //console.log( data )
         } catch (error) {
             
-            console.log( error )
+            //console.log( error )
+        }
+    }
+
+    const eliminarPermiso = async ( permiso ) => {
+        try {
+           const { data } = await api.post('/quitarPermiso', permiso)
+            //permisos.value = [ data, ...permisos.value ]
+            
+            //console.log( data )
+        } catch (error) {
+            
+            //console.log( error.data )
         }
     }
 
@@ -33,6 +45,7 @@ export const usePermisoStore = defineStore("permisos", () => {
     return {
         permisos,
         insertarPermiso,
-        obtenerPermisos
+        obtenerPermisos,
+        eliminarPermiso
     }
 })

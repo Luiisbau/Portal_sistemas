@@ -3,17 +3,6 @@
     <div class="q-pa-md">
       <div div class="q-pa-md">
         <h2>Permisos de Usuarios</h2>
-       <!-- <div>
-          <q-btn
-            icon-right="note_add"
-            borderless
-            color="primary"   
-            label="Agregar"
-            no-caps
-            @click="nuevoPermiso"
-          />
-        </div>
-        -->
       </div>
       <q-separator color="primary" class="q-my-md" inset />
       <div class="contenedor-tarjetas-portales">
@@ -38,7 +27,7 @@
             <q-td>
               
               <q-btn
-                @click="eliminarPortal(props.row)"
+                @click="eliminarPermiso(props.row)"
                 flat
                 color="negative"
                 icon="delete"
@@ -78,6 +67,7 @@
   
     </div>
     <ModalPermisos ref="modalPermisos"></ModalPermisos>
+    <ModalEliminarUsuario ref="modalEliminarPermiso"></ModalEliminarUsuario>
   </q-layout>
 </template>
 
@@ -85,11 +75,13 @@
 import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import ModalPermisos from "../../components/ModalPermisos.vue";
+import ModalEliminarUsuario from "src/components/ModalEliminarUsuario.vue";
 import { usePortalesStore } from "src/stores/portales";
 
 export default {
   components: {
     ModalPermisos,
+    ModalEliminarUsuario
   },
   setup() {
     const usePortales = usePortalesStore()
@@ -131,16 +123,23 @@ export default {
     ];
   
     const modalPermisos = ref(null);
+    const modalEliminarPermiso = ref(null);
 
     const nuevoPermiso = (data) => {
       modalPermisos.value.abrir(data);
+    };
+
+    const eliminarPermiso = (data) => {
+      modalEliminarPermiso.value.abrir(data);
     };
 
     return {
       portalesPermisos,
       columns,
       modalPermisos,
-      nuevoPermiso
+      modalEliminarPermiso,
+      nuevoPermiso,
+      eliminarPermiso
     };
   },
 };

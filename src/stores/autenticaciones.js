@@ -32,7 +32,7 @@ export const useAutenticacionStore = defineStore("autenticaciones", () => {
       isLogin.value = false
       idPortal.value = 0
     } catch ( error ) {
-      console.log( error )
+      //console.log( error )
     }
   }
 
@@ -40,7 +40,7 @@ export const useAutenticacionStore = defineStore("autenticaciones", () => {
     const token = localStorage.getItem('token')
 
     if (!token) {
-      console.log('No hay token')
+      //console.log('No hay token')
       return
     }
 
@@ -58,7 +58,7 @@ export const useAutenticacionStore = defineStore("autenticaciones", () => {
       usuarioAutenticado.value = { ...data }
 
     } catch (error) {
-      console.log(error.response.msg)
+      //console.log(error.response.msg)
     }
 
   }

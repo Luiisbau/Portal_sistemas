@@ -14,7 +14,6 @@ export const useUsuarioStore = defineStore("usuarios", () => {
             usuariosActivos.value = [...data]
 
             usuariosFiltrado.value = data.map(empleado => {
-              console.log(empleado)
                 return {
                   label: `${empleado.numero_empleado} - ${empleado.nombre} (${empleado.usuario})`,
                   value: empleado
@@ -23,7 +22,7 @@ export const useUsuarioStore = defineStore("usuarios", () => {
 
         } catch ( error ) {
 
-          console.log( error.response.msg )
+          //console.log( error.response.msg )
           
         } finally {
             cargando.value = false
@@ -38,7 +37,7 @@ export const useUsuarioStore = defineStore("usuarios", () => {
             usuariosActivos.value[posicion].correo = usuario.correo; 
 
         } catch ( error ) {
-          console.log( error.response.msg )
+          //console.log( error.response.msg )
         } finally {
 
         }
