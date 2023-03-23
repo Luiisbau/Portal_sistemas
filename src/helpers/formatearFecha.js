@@ -1,5 +1,6 @@
 import dayjs from 'dayjs'
-import { es } from 'dayjs/locale/es'
 
 export const formatearFecha = ( stringFecha ) =>  dayjs( stringFecha ).locale("es").format("DD/MMMM/YYYY")
+
+export const formatDate = (stringFecha) => dayjs(stringFecha).locale('es').format('DD/MM/YYYY HH:mm:ss');
 

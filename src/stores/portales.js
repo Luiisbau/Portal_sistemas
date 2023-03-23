@@ -19,17 +19,29 @@ export const usePortalesStore = defineStore("portales", () =>  {
     }
     const insertarPortal = async ( portal ) => {
         try {
-            await api.post('/portales', { nombrePortal: portal })
-            portales.value = [ { nombrePortal: portal }, ...portales.value ]
+       const  {data} =   await api.post('/portales', { nombrePortal: portal })
+        portales.value = [ data, ...portales.value ]
         } catch (error) {
             
             console.log( error )
         }
     }
-    const eliminarPortal = async ( id ) => {
+    const eliminarPortal = async ( portal) => {
         try {
-            await api.delete(`/portales/${ id }`)
-            portales.value = portales.value.filter( portal => portal.id !== id )
+            await api.delete(`/portales/${ portal.idPortal }`)
+            portales.value = portales.value.filter( portalBusqueda => portalBusqueda.idPortal !== portal.idPortal )
+        } catch (error) {
+            
+            console.log( error )
+        }
+    }
+
+    const editarNombrePortal = async ( portal) => {
+    const posicion = portales.value.indexOf(portal.portal)
+
+        try {
+            await api.put(`/portales/${ portal.portal.idPortal }`, {nombre : portal.nombre})
+            portales.value[posicion].nombrePortal = portal.nombre
         } catch (error) {
             
             console.log( error )
@@ -40,6 +52,7 @@ export const usePortalesStore = defineStore("portales", () =>  {
         portales,
         obtenerPortales,
         insertarPortal,
-        eliminarPortal
+        eliminarPortal,
+        editarNombrePortal
     }
 })

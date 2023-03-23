@@ -19,7 +19,7 @@ export const useAutenticacionStore = defineStore("autenticaciones", () => {
       localStorage.setItem( 'idPortal', data.idPortal )
       
     } catch ( error ) {
-      notificacion('negative', error.response.data.msg)
+      notificacion('negative', error.response.data.message)
     }
   }
 

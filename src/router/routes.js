@@ -18,41 +18,12 @@ const routes = [
         component: () => import(/* webpackChunkName: "dashboard" */'src/modules/dashboard/DashBoard.vue')
       },
       {
-        path: 'roles',
-        icono: 'manage_accounts',
-        label: 'Roles de usuarios',
-        name: 'roles',
-        component: () => import(/* webpackChunkName: "" */'src/modules/roles/RolesModule.vue')
-      },
-      {
-        path: 'empresas',
-        icono: 'apartment',
-        label: 'Empresas',
-        name: 'empresas',
-        component: () => import(/* webpackChunkName: "" */'src/modules/empresas/EmpresasModule.vue')
-      },
-      // {
-      //   path: 'departamentos',
-      //   icono: 'room_preferences',
-      //   label: 'Departamentos',
-      //   name: 'departamentos',
-      //   component: () => import(/* webpackChunkName: "" */'src/modules/configuracion/Configuracion.vue')
-      // },
-      {
         path: 'usuarios',
         icono: 'person_add',
         label: 'Usuarios',
         name: 'usuarios',
         // meta: { isAdmin: true },
         component: () => import(/* webpackChunkName: "" */'src/modules/usuarios/UsuariosModule.vue')
-      },
-      {
-        path: 'sucursales',
-        icono: 'corporate_fare',
-        label: 'Sucursales',
-        name: 'sucursales',
-        // meta: { isAdmin: true },
-        component: () => import(/* webpackChunkName: "" */'src/modules/sucursales/SucursalesModule.vue')
       },
       {
         path: 'portales',
@@ -65,10 +36,9 @@ const routes = [
       {
         path:'permisos',
         icono: 'badge',
-        label: 'Permisos Usuarios',
+        label: 'Asignar Usuarios',
         name: 'permisos',
         component: () => import(/* webpackChunkName: "" */'src/modules/permisos/PermisosPortales.vue')
-
       }
     ]
   },

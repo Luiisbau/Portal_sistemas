@@ -65,14 +65,16 @@
 </template>
 <script>
 import { useAutenticacionStore } from "../stores/autenticaciones";
-import { api } from "src/boot/axios";
-import { ref, reactive } from "vue";
+import { ref, reactive, onMounted } from "vue";
 import { useRouter } from "vue-router";
+import { ID_PORTAL } from "src/constant/servidor";
+import { storeToRefs } from "pinia";
 
 export default {
   setup() {
     const useAutenticacion = useAutenticacionStore();
-    const { iniciarSesion } = useAutenticacion;
+    const { iniciarSesion, autenticarUsuario } = useAutenticacion
+    const { isLogin } = storeToRefs(useAutenticacion)
 
     const isPassword = ref(true);
     const formulario = ref(null);
@@ -81,7 +83,16 @@ export default {
     const usuarioObj = reactive({
       usuario: "",
       contrasena: "",
+      portal: ID_PORTAL
     });
+
+    onMounted( async() => {
+      await autenticarUsuario()
+      if(isLogin.value){
+        router.push("/principal");
+
+      }
+    })
 
     const login = async () => {
       if (await formulario.value.validate()) {

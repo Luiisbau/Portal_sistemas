@@ -131,9 +131,6 @@
 
 <script>
 import { reactive, ref } from "vue";
-import { useEmpresaStore } from "../stores/empresas";
-import { useSucursalesStore } from "../stores/sucursales";
-import { useRolStore } from "../stores/roles";
 import { usePortalesStore } from "../stores/portales";
 import { useUsuarioStore } from "../stores/usuarios";
 import { usePermisoStore } from "../stores/permisos";
@@ -145,15 +142,6 @@ export default {
     const nuevoRegistro = ref(true);
     const abrirModal = ref(false);
 
-    const useEmpresa = useEmpresaStore();
-    const { empresas } = storeToRefs(useEmpresa);
-
-    const useSucursal = useSucursalesStore();
-    const { sucursales } = storeToRefs(useSucursal);
-
-    const useRol = useRolStore();
-    const { roles } = storeToRefs(useRol);
-
     const usePortal = usePortalesStore();
     const { portales } = storeToRefs(usePortal);
 
@@ -163,9 +151,7 @@ export default {
     const usePermiso = usePermisoStore();
     const { insertarPermiso } = usePermiso;
 
-    const options = ref(empresas.value);
-    const optionsSucursales = ref(sucursales.value);
-    const optionsRoles = ref(roles.value);
+  
     const optionesPortales = ref(portales.value);
     const optionsUsuarios = ref(usuariosActivos.value);
 
@@ -196,45 +182,20 @@ export default {
       insertarPermiso(permisoNuevo);
     };
 
-    const abrir = (esNuevoRegistro) => {
-      // const permisoNuevo = { nombre: '', usuario: '', nombre_rol: '', nombre_empresa: '', nombre_sucursal: '', nombre_portal: '', sucursaleIdSucursal: '', empresaIdEmpresa: '', roleId: '', portaleId: '' }
-
-      // Object.keys( permisoObj ).forEach( key =>  permisoObj[key])
+    const abrir = () => {
       abrirModal.value = true;
-    };
+    }
 
     //TODO: VOLVER UN HELPER
     const filterFn = (val, update) => {
       if (val === "") {
         update(() => {
-          options.value = empresas.value;
-          optionsSucursales.value = sucursales.value;
-          optionsRoles.value = roles.value;
           optionesPortales.value = portales.value;
           optionsUsuarios.value = usuariosActivos.value;
         });
         return;
       }
 
-      update(() => {
-        const needle = val.toLowerCase();
-        options.value = empresas.value.filter(
-          (v) => v.nombreEmpresa.toLowerCase().indexOf(needle) > -1
-        );
-        optionsSucursales.value = sucursales.value.filter(
-          (v) => v.nombreSucursal.toLowerCase().indexOf(needle) > -1
-        );
-        optionsRoles.value = roles.value.filter(
-          (v) => v.nombreRol.toLowerCase().indexOf(needle) > -1
-        );
-        optionesPortales.value = portales.value.filter(
-          (v) => v.nombre.toLowerCase().indexOf(needle) > -1
-        );
-        optionsUsuarios.value = usuariosActivos.value.filter(
-          //  v.nombre.toLowerCase().indexOf(needle) > -1
-          (v) => console.log(v)
-        );
-      });
     };
 
     return {
@@ -242,15 +203,7 @@ export default {
       nuevoRegistro,
       permisoObj,
       guardarPermiso,
-      options,
       abrir,
-      empresas,
-      sucursales,
-      roles,
-      optionsRoles,
-      optionsSucursales,
-      optionesPortales,
-      optionsUsuarios,
       portales,
       filterFn,
       buscarRegistro,

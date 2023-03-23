@@ -5,17 +5,11 @@
         <h2>Portales</h2>
         <div>
           <q-btn
-            icon-right="upload_file"
-            class="q-mx-sm"
-            borderless
-            color="primary"
-            label="Exportar"
-          />
-          <q-btn
             icon-right="note_add"
             borderless
             color="primary"
-            label="Agregar"
+            label="Agregar portal"
+            no-caps
             @click="nuevoPortal"
           />
         </div>
@@ -26,7 +20,7 @@
           <template v-slot:body-cell-acciones="props">
             <q-td>
               <q-btn
-                @click="editarPortal(props.row.id)"
+                @click="editarPortal(props.row)"
                 flat
                 color="dark"
                 icon="edit"
@@ -34,7 +28,7 @@
                 <q-tooltip> Editar Portal </q-tooltip>
               </q-btn>
               <q-btn
-                @click="eliminarPortal(props.row.id)"
+                @click="eliminarPortal(props.row)"
                 flat
                 color="negative"
                 icon="delete"
@@ -46,31 +40,43 @@
         </q-table>
       </div>
       <ModalPortales ref="modalPortal"></ModalPortales>
+      <ModalEliminarPortal ref="modalEliminar"></ModalEliminarPortal>
     </q-page-container>
   </q-layout>
 </template>
 <script>
 import { usePortalesStore } from "../../stores/portales";
-import { formatearFecha } from "../../helpers/formatearFecha";
+import { formatDate } from "../../helpers/formatearFecha";
 import ModalPortales from "../../components/ModalPortales.vue";
+import ModalEliminarPortal from "src/components/ModalEliminarPortal.vue";
 import { ref, onMounted } from "vue";
 import { storeToRefs } from "pinia";
 
 export default {
   components: {
     ModalPortales,
+    ModalEliminarPortal
   },
   setup() {
     const usePortal = usePortalesStore();
     const { portales } = storeToRefs(usePortal);
-    const { eliminarPortal, obtenerPortales } = usePortal;
+    const {  obtenerPortales } = usePortal;
 
     const modalPortal = ref(null);
+    const modalEliminar = ref(null)
+
     const columns = [
+    {
+        name: "id",
+        label: "id portal",
+        align: "center",
+        field: "idPortal",
+        sortable: true,
+      },
       {
         name: "nombrePortal",
         label: "Nombre del portal",
-        align: "left",
+        align: "center",
         field: "nombrePortal",
         sortable: true,
       },
@@ -78,23 +84,26 @@ export default {
         name: "createdAt",
         label: "Fecha de registro",
         align: "left",
-        field: (row) => formatearFecha(row.createdAt),
+        field: (row) => formatDate(row.createdAt),
         sortable: true,
       },
       {
         name: "acciones",
-        label: "Acciones",
         align: "left",
         field: "acciones",
       },
     ];
 
     const nuevoPortal = () => {
-      modalPortal.value.abrirModal = true;
+      modalPortal.value.nuevoPortal()
     };
-    const editarPortal = (id) => {
-      console.log(id);
+    const editarPortal = (data) => {
+      modalPortal.value.editarPortal(data)
     };
+
+    const eliminarPortal = (data) =>{
+      modalEliminar.value.abrir(data)
+    }
 
     onMounted(() => {
       obtenerPortales();
@@ -107,6 +116,7 @@ export default {
       nuevoPortal,
       eliminarPortal,
       modalPortal,
+      modalEliminar
     };
   },
 };

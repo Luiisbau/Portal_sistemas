@@ -48,13 +48,11 @@ import { ref, onMounted, computed } from "vue";
 import { useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 import NavBar from "../components/NavBar.vue";
-import { useRolStore } from "../stores/roles";
-import { useEmpresaStore } from "../stores/empresas";
 import { useUsuarioStore } from "../stores/usuarios";
-import { useSucursalesStore } from "../stores/sucursales";
 import { usePortalesStore } from "../stores/portales";
 import { usePermisoStore } from "../stores/permisos";
 import { useAutenticacionStore } from "../stores/autenticaciones";
+import { useInformacionAccesoStore } from "src/stores/informacionAccesos";
 
 export default {
   components: {
@@ -62,35 +60,32 @@ export default {
   },
   setup() {
     const leftDrawerOpen = ref(false);
-
-    const useRol = useRolStore();
-    const useEmpresa = useEmpresaStore();
+    
     const useUsuario = useUsuarioStore();
-    const useSucursal = useSucursalesStore();
     const usePortal = usePortalesStore();
     const usePermiso = usePermisoStore();
     const useAutenticacion = useAutenticacionStore();
+    const useAccesos = useInformacionAccesoStore();
 
-    const { obtenerRoles } = useRol;
-    const { obtenerEmpresas } = useEmpresa;
-    const { obtenerSucursales } = useSucursal;
+
     const { obtenerPortales } = usePortal;
     const { obtenerUsuarios } = useUsuario;
     const { obtenerPermisos } = usePermiso;
+    const { obtenerTodosAccesos} = useAccesos
 
     const { usuarioAutenticado } = storeToRefs(useAutenticacion);
     const { cerrarSesion, autenticarUsuario } = useAutenticacion;
+
+
     const router = useRouter();
 
     onMounted(() => {
-      obtenerRoles();
-      obtenerEmpresas();
-      obtenerSucursales();
       obtenerPortales();
       obtenerUsuarios();
       obtenerPermisos();
       autenticarUsuario();
-    });
+      obtenerTodosAccesos()
+    })
 
     const logout = () => {
       router.push("/");
@@ -108,8 +103,6 @@ export default {
 
     return {
       leftDrawerOpen,
-
-      obtenerEmpresas,
       usuarioAutenticado,
       logout,
       inicialesUsuarios,
