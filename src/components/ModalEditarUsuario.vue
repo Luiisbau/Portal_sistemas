@@ -52,11 +52,15 @@
 <script>
 import { ref, reactive } from "vue";
 import { useUsuarioStore } from "src/stores/usuarios";
+import { usePortalesStore } from "src/stores/portales";
 
 export default {
   setup() {
     const useUsuario = useUsuarioStore();
     const { editarUsuarios } = useUsuario;
+
+    const usePortal = usePortalesStore();
+    const { obtenerPortales } = usePortal;
 
     const abrirModal = ref(false)
     const tipoModal = ref("")
@@ -73,7 +77,8 @@ export default {
         return formulario.value.validate()
       }*/
 
-      editarUsuarios(datosObjet)
+      await editarUsuarios(datosObjet)
+      obtenerPortales()
       abrirModal.value = false;
     }
 
