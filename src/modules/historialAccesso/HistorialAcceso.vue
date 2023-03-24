@@ -30,14 +30,19 @@
 <script>
 import { useInformacionAccesoStore } from "src/stores/informacionAccesos";
 import { formatDate } from "src/helpers/formatearFecha";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { storeToRefs } from "pinia";
 
 export default {
   setup() {
 
     const useAccesos = useInformacionAccesoStore()
+    const {obtenerTodosAccesos} = useAccesos
     const { informacionAcceso} = storeToRefs(useAccesos)
+
+    onMounted(async() => {
+      await obtenerTodosAccesos()
+    })
 
     const columns = [
       {
