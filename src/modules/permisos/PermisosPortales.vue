@@ -8,11 +8,14 @@
       <div class="contenedor-tarjetas-portales">
         <q-card v-for="(item)  in portalesPermisos" :key="item">
             <q-card-section>
-              <div align="center">
+              
+              <div class="titulo-tarjetas">
+                <div align="center">
                 <h4>{{ item.nombrePortal }}</h4>
               </div>
-
-              <div class="q-mb-md">
+              </div>
+              
+                <div class="q-pa-sm">
                 <q-btn size="sm" color="primary" round icon="add" @click="nuevoPermiso(item)"></q-btn>
               </div>
               
@@ -162,6 +165,22 @@ export default {
         justify-content: center;
     }
 }
+
+.titulo-tarjetas{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: $primary;
+    border-radius: 8px;
+    h4 {
+    font-size: 2rem;
+    @include adaptar( 768px ) {
+        font-size: 2.5rem;
+        color: #fff;
+      }
+    }
+  }
+
 
 
 </style>

@@ -10,6 +10,7 @@ export const useUsuarioStore = defineStore("usuarios", () => {
 
       const obtenerUsuarios = async () => {
         try {
+          cargando.value = true
             const { data } = await api.get('/usuarios')
             usuariosActivos.value = [...data]
 
