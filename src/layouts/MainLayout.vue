@@ -53,7 +53,9 @@ import { usePortalesStore } from "../stores/portales";
 import { usePermisoStore } from "../stores/permisos";
 import { useAutenticacionStore } from "../stores/autenticaciones";
 import { useInformacionAccesoStore } from "src/stores/informacionAccesos";
-
+import { useSucursalesStore } from 'src/stores/sucursales'
+import { useEmpresasStore } from "src/stores/empresas";
+import { useDepartamentosStore } from "src/stores/departamento";
 export default {
   components: {
     NavBar,
@@ -61,29 +63,41 @@ export default {
   setup() {
     const leftDrawerOpen = ref(false);
     
-    const useUsuario = useUsuarioStore();
-    const usePortal = usePortalesStore();
-    const usePermiso = usePermisoStore();
-    const useAutenticacion = useAutenticacionStore();
-    const useAccesos = useInformacionAccesoStore();
-
-
-    const { obtenerPortales } = usePortal;
+    const useUsuario = useUsuarioStore()
     const { obtenerUsuarios } = useUsuario;
-    const { obtenerPermisos } = usePermiso;
-    const { obtenerTodosAccesos} = useAccesos
-
-    const { usuarioAutenticado } = storeToRefs(useAutenticacion);
+    
+    const useAutenticacion = useAutenticacionStore();
     const { cerrarSesion, autenticarUsuario } = useAutenticacion;
+    const { usuarioAutenticado } = storeToRefs(useAutenticacion);
 
+    const usePermiso = usePermisoStore()
+    const { obtenerPermisos } = usePermiso;
+    
+    const useAccesos = useInformacionAccesoStore();
+    const { obtenerTodosAccesos} = useAccesos
+    
+    const usePortal = usePortalesStore()
+    const { obtenerPortales } = usePortal
+
+    const useSucursales = useSucursalesStore()
+    const { obtenerSucursales } = useSucursales
+
+    const useEmpresas = useEmpresasStore()
+    const {obtenerEmpesas} = useEmpresas
+    
+    const useDepartamentos = useDepartamentosStore()
+    const {obtenerDepartamentos} = useDepartamentos
 
     const router = useRouter();
 
     onMounted(() => {
-      obtenerPortales();
-      obtenerUsuarios();
-      obtenerPermisos();
-      autenticarUsuario();
+      obtenerPortales()
+      obtenerUsuarios()
+      obtenerPermisos()
+      obtenerSucursales()
+      obtenerEmpesas()
+      obtenerDepartamentos()
+      //autenticarUsuario();
       obtenerTodosAccesos()
     })
 

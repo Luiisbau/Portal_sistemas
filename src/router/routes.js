@@ -46,6 +46,13 @@ const routes = [
         label: 'Historial de accesos',
         name: 'historial',
         component: () => import(/* webpackChunkName: "" */'src/modules/historialAccesso/historialAcceso.vue')
+      },
+      {
+        path:'empresas',
+        icono: 'business',
+        label: 'Informacion de empresas',
+        name: 'empresas',
+        component: () => import(/* webpackChunkName: "" */'src/modules/empresas/Empresas.vue')
       }
     ]
   },
