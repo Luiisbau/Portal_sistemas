@@ -1,5 +1,16 @@
 <template>
-  <div class="contenedor-login">
+
+  <!--<div v-if="true">
+    <div class="q-pa-sm row justify-around">
+        <q-spinner-tail
+          color="primary"
+          size="7em"
+          display="flex"
+         /> 
+    </div>
+  </div>--> 
+
+  <div  class="contenedor-login">
     <div class="informacion-login contenedor">
       <div class="portada-login">
         <h1>Bienvenido, <span>Portal de Sistemas</span></h1>
@@ -57,12 +68,16 @@
           </div>
           <div class="btn-login">
             <q-btn color="primary" type="submit" label="Iniciar Sesión" />
+
+
           </div>
         </div>
       </q-form>
     </div>
   </div>
+
 </template>
+
 <script>
 import { useAutenticacionStore } from "../stores/autenticaciones";
 import { ref, reactive, onMounted } from "vue";
@@ -100,6 +115,7 @@ export default {
         router.push("/principal");
       }
     };
+
 
     return {
       usuarioObj,

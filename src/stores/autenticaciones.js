@@ -4,13 +4,14 @@ import { ref } from 'vue'
 import { notificacion } from 'src/helpers/mensajes'
 
 export const useAutenticacionStore = defineStore("autenticaciones", () => {
-
   const usuarioAutenticado = ref(null)
   const isLogin = ref(false)
   const idPortal = ref(0)
+  
 
   const iniciarSesion = async ( usuario ) => {
     try {
+     
       const { data } = await api.post('/usuarios/login', usuario)
       // autenticarUsuario()
       idPortal.value = data.idPortal
