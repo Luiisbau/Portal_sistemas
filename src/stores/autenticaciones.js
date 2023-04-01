@@ -3,23 +3,16 @@ import { api } from 'src/boot/axios'
 import { ref } from 'vue'
 import { notificacion } from 'src/helpers/mensajes'
 
-export const useAutenticacionStore = defineStore("autenticaciones", () => {
+export const useAutenticacionStore = defineStore('autenticaciones', () => {
   const usuarioAutenticado = ref(null)
   const isLogin = ref(false)
-  const idPortal = ref(0)
-  
 
-  const iniciarSesion = async ( usuario ) => {
+  const iniciarSesion = async (usuario) => {
     try {
-     
       const { data } = await api.post('/usuarios/login', usuario)
-      // autenticarUsuario()
-      idPortal.value = data.idPortal
       isLogin.value = true
-      localStorage.setItem( 'token', data.token )
-      localStorage.setItem( 'idPortal', data.idPortal )
-      
-    } catch ( error ) {
+      localStorage.setItem('token', data)
+    } catch (error) {
       notificacion('negative', error.response.data.message)
     }
   }
@@ -29,39 +22,35 @@ export const useAutenticacionStore = defineStore("autenticaciones", () => {
     try {
       usuarioAutenticado.value = null
       localStorage.removeItem('token')
-      localStorage.removeItem('idPortal')
       isLogin.value = false
-      idPortal.value = 0
-    } catch ( error ) {
-      //console.log( error )
+    } catch (error) {
+      // console.log(error)
     }
   }
 
   const autenticarUsuario = async () => {
     const token = localStorage.getItem('token')
-
+    console.log('ENTRO')
     if (!token) {
-      //console.log('No hay token')
+      // console.log('No hay token')
       return
     }
 
     const configuracion = {
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${ token }`, 
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
       }
     }
-    try {
-      idPortal.value = parseInt( localStorage.getItem('idPortal') )
-      isLogin.value = true
 
+    try {
+      isLogin.value = true
       const { data } = await api.get('/usuarios/perfil', configuracion)
       usuarioAutenticado.value = { ...data }
-
     } catch (error) {
-      //console.log(error.response.msg)
+      isLogin.value = false
+      notificacion('negative', error.response.data.message)
     }
-
   }
 
   return {
@@ -69,9 +58,6 @@ export const useAutenticacionStore = defineStore("autenticaciones", () => {
     cerrarSesion,
     autenticarUsuario,
     usuarioAutenticado,
-    idPortal,
     isLogin
   }
-
-
 })

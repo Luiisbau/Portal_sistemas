@@ -6,11 +6,9 @@ export const useUsuarioStore = defineStore("usuarios", () => {
 
     const usuariosFiltrado = ref([])
     const usuariosActivos = ref([])
-    const cargando = ref(true)
 
       const obtenerUsuarios = async () => {
         try {
-          cargando.value = true
             const { data } = await api.get('/usuarios')
             usuariosActivos.value = [...data]
 
@@ -26,7 +24,6 @@ export const useUsuarioStore = defineStore("usuarios", () => {
           //console.log( error.response.msg )
           
         } finally {
-            cargando.value = false
         }
       }
 
@@ -55,7 +52,6 @@ export const useUsuarioStore = defineStore("usuarios", () => {
         usuariosActivos,
         obtenerUsuarios,
         editarUsuarios,
-        cargando,
         usuariosFiltrado
       }
 })

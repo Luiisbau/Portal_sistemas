@@ -105,7 +105,6 @@ export default {
       await autenticarUsuario()
       if(isLogin.value){
         router.push("/principal");
-
       }
     })
 

@@ -12,8 +12,10 @@
           <div class="q-my-md">
             <label>Selecciona el la suursal</label>
             <q-select
+              use-input
               v-model="sucursal"
-              :options="listaSucursales"
+              :options="opcionesSucursal"
+              @filter="parametrosFiltradoSucursales"
             >
             </q-select>
           </div>
@@ -55,6 +57,8 @@ import { useSucursalesStore } from "src/stores/sucursales";
 import { useDepartamentosStore } from "src/stores/departamento";
 import {useDepartamentoSucursalStore} from 'src/stores/departamentoSucursal'
 import { storeToRefs } from "pinia"
+import { filtradoBusquedaObj } from "src/helpers/filtradoBusquedaObj";
+
 export default {
   setup() {
 
@@ -70,6 +74,7 @@ export default {
     const abrirModal = ref(false)
     const tipoModal = ref('')
     const formulario = ref(null)
+    const opcionesSucursal = ref(listaSucursales.value)
 
     const departamento = ref('')
     const sucursal = ref('')
@@ -101,7 +106,12 @@ export default {
     const nuevoDepartamentoSucursal= () => {
       tipoModal.value = 'Agregar' 
       abrirModal.value = true;
-    };
+    }
+
+    const parametrosFiltradoSucursales = (val, update) => {
+      // console.log('rh opciones', opcionesRh)
+      filtradoBusquedaObj(val, update, listaSucursales.value, opcionesSucursal)
+    }
 
     return {
       abrirModal,
@@ -112,7 +122,9 @@ export default {
       departamento,
       sucursal,
       listaDepartamentos,
-      listaSucursales
+      listaSucursales,
+      parametrosFiltradoSucursales,
+      opcionesSucursal
     };
   },
 };

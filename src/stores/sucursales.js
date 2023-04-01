@@ -15,7 +15,7 @@ export const useSucursalesStore = defineStore("sucursales", () =>  {
 
             listaSucursales.value = data.map(sucursal => {
                 return {
-                  label: sucursal.nombreSucursal,
+                  label: `${sucursal.nombreSucursal} (${sucursal.abreviacion})`,
                   data: sucursal
                 }
               })

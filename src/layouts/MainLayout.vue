@@ -1,13 +1,13 @@
 
 <template>
-  <div v-if="cargando">
+ <!-- <div v-if="cargando">
 
     <div class="q-pa-sm row justify-center items-center spinner">
       <q-spinner-tail color="primary" size="7em" display="flex" />
     </div>
   </div>
-
-  <q-layout v-else-if="!cargando" view="hHh LpR fFf">
+-->
+  <q-layout view="hHh LpR fFf">
 
     <q-header elevated class="bg-primary text-white row">
 
@@ -88,11 +88,6 @@
 </template>
 
 
-
-
-
-
-
 <script>
 import { ref, onMounted, computed } from "vue";
 import { useRouter } from "vue-router";
@@ -147,7 +142,7 @@ export default {
       obtenerSucursales()
       obtenerEmpesas()
       obtenerDepartamentos()
-      //autenticarUsuario();
+      autenticarUsuario();
       obtenerTodosAccesos()
     })
 
@@ -169,7 +164,6 @@ export default {
       leftDrawerOpen,
       usuarioAutenticado,
       logout,
-      cargando,
       inicialesUsuarios,
       //inicialesUsuario,
       toggleLeftDrawer() {
