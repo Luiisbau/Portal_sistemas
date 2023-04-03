@@ -30,7 +30,6 @@ export const useAutenticacionStore = defineStore('autenticaciones', () => {
 
   const autenticarUsuario = async () => {
     const token = localStorage.getItem('token')
-    console.log('ENTRO')
     if (!token) {
       // console.log('No hay token')
       return
