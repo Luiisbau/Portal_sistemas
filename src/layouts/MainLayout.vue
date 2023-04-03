@@ -112,7 +112,7 @@ export default {
     const { obtenerUsuarios } = useUsuario;
     
     const useAutenticacion = useAutenticacionStore();
-    const { cerrarSesion, autenticarUsuario } = useAutenticacion;
+    const { cerrarSesion } = useAutenticacion;
     const { usuarioAutenticado } = storeToRefs(useAutenticacion);
 
     const usePermiso = usePermisoStore()
@@ -142,13 +142,12 @@ export default {
       obtenerSucursales()
       obtenerEmpesas()
       obtenerDepartamentos()
-      autenticarUsuario();
       obtenerTodosAccesos()
     })
 
     const logout = () => {
       router.push("/");
-      cerrarSesion();
+      cerrarSesion()
     };
 
     const inicialesUsuarios = computed(() => {
@@ -165,7 +164,6 @@ export default {
       usuarioAutenticado,
       logout,
       inicialesUsuarios,
-      //inicialesUsuario,
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value;
       },

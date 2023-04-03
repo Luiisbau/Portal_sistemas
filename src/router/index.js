@@ -31,15 +31,16 @@ export default route(function (/* { store, ssrContext } */) {
 
     const requiredMeta = to.meta.auth
     const useAutenticacion = useAutenticacionStore()
-    const { autenticarUsuario } = useAutenticacion
-    const { isLogin, idPortal } = storeToRefs(useAutenticacion)
-    autenticarUsuario()
+    const { autenticarUsuario, cerrarSesion } = useAutenticacion
+    const { isLogin } = storeToRefs(useAutenticacion)
+    await autenticarUsuario()
     
     if (requiredMeta) {
       if (isLogin.value) {
         next()
       } else {
         next('/')
+        cerrarSesion()
       }
     } else {
       next()

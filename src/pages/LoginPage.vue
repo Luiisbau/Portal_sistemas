@@ -1,16 +1,15 @@
 <template>
+  <div v-if="isLogin" class="centrar-circular-progres">
+    <q-circular-progress
+      indeterminate
+      rounded
+      size="50px"
+      color="primary"
+      class="q-ma-md"
+    />
+  </div>
 
-  <!--<div v-if="true">
-    <div class="q-pa-sm row justify-around">
-        <q-spinner-tail
-          color="primary"
-          size="7em"
-          display="flex"
-         /> 
-    </div>
-  </div>--> 
-
-  <div  class="contenedor-login">
+  <div v-else class="contenedor-login">
     <div class="informacion-login contenedor">
       <div class="portada-login">
         <h1>Bienvenido, <span>Portal de Sistemas</span></h1>
@@ -91,9 +90,9 @@ export default {
     const { iniciarSesion, autenticarUsuario } = useAutenticacion
     const { isLogin } = storeToRefs(useAutenticacion)
 
-    const isPassword = ref(true);
-    const formulario = ref(null);
-    const router = useRouter();
+    const isPassword = ref(true)
+    const formulario = ref(null)
+    const router = useRouter()
 
     const usuarioObj = reactive({
       usuario: "",
@@ -122,6 +121,7 @@ export default {
       iniciarSesion,
       login,
       formulario,
+      isLogin
     };
   },
 };
@@ -137,5 +137,11 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.centrar-circular-progres{
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
 }
 </style>

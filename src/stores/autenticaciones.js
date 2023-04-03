@@ -44,8 +44,8 @@ export const useAutenticacionStore = defineStore('autenticaciones', () => {
     }
 
     try {
-      isLogin.value = true
       const { data } = await api.get('/usuarios/perfil', configuracion)
+      isLogin.value = true
       usuarioAutenticado.value = { ...data }
     } catch (error) {
       isLogin.value = false
