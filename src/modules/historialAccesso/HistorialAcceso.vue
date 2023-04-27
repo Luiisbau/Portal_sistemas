@@ -3,11 +3,34 @@
     <h2>Historial de acceso</h2>
     <q-separator color="primary" class="q-my-md" inset />
   </div>
+  <div class="q-gutter-md q-mt-sm">
+    <q-row class= row>
+      <q-col class="q-pa-sm q-ml-sm">
+    <q-btn-dropdown color="primary" label="Programación">
+        <div>
+          <q-toggle v-model="selection" label="jpedroza" val="jpedroza"/>
+        </div>
+        <div>
+          <q-toggle v-model="selection" label="nperez" val="nperez"/>
+        </div>
+        <div>
+          <q-toggle v-model="selection" label="amagdaleno" val="amagdaleno"/>
+        </div>
+        <div>
+          <q-toggle v-model="selection" label="vmerino" val="vmerino"/>
+        </div>
+    </q-btn-dropdown>
+  </q-col>
+  <q-col class="q-pa-sm ">
+      <q-btn color="primary" label="Actualizar" :value="actualizar" @click="cambiarActualizar"  />
+  </q-col>
+  </q-row>
+  </div>
 
-  <div class="q-pt-xl q-px-md" >
+  <div class="q-pt-md q-px-md" >
     <q-table
       title="Ultimos accesos"
-      :rows="informacionAcceso"
+      :rows="informacionAccesoFiltrado"
       :columns="columns"
       :pagination="pagination"
       :filter="filter"
@@ -30,8 +53,10 @@
 <script>
 import { useInformacionAccesoStore } from "src/stores/informacionAccesos";
 import { formatDate } from "src/helpers/formatearFecha";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { storeToRefs } from "pinia";
+import {filtrarNombre} from "src/helpers/filtrarTablaElemento";
+
 
 export default {
   setup() {
@@ -39,9 +64,37 @@ export default {
     const useAccesos = useInformacionAccesoStore()
     const {obtenerTodosAccesos} = useAccesos
     const { informacionAcceso} = storeToRefs(useAccesos)
+    const informacionAccesoFiltrado = ref([])
+    const selection = ref([])
+    const nombreSeleccionado = ref('')
+    const actualizar = ref(true)
+
+    watch(selection, (newVal, oldVal) => {
+      filtrarNombre(newVal, informacionAcceso, informacionAccesoFiltrado)
+    })
+
+    const reset = () => {
+  informacionAccesoFiltrado.value = informacionAcceso.value
+  selection.value = ([])
+  const toggles = document.querySelectorAll('.q-toggle')
+  toggles.forEach(toggle => {
+    toggle.__vue__.value = false
+  })
+}
+
+const cambiarActualizar = () => {
+  actualizar.value = !actualizar.value
+  if (actualizar.value) {
+    reset()
+  } else {
+    selection.value = ['jpedroza', 'nperez', 'amagdaleno', 'vmerino']
+    filtrarNombre(selection.value, informacionAcceso, informacionAccesoFiltrado)
+  }
+}
 
     onMounted(async() => {
       await obtenerTodosAccesos()
+      informacionAccesoFiltrado.value = informacionAcceso.value
     })
 
     const columns = [
@@ -91,6 +144,7 @@ export default {
     ];
 
     return {
+      selection,
       filter: ref(''),
       pagination: {
         sortBy: 'id',
@@ -98,11 +152,18 @@ export default {
         rowsPerPage: 10
       },
       informacionAcceso,
-      columns
+      informacionAccesoFiltrado,
+      nombreSeleccionado,
+      columns,
+      reset,
+      cambiarActualizar,
+      actualizar
+      //ocultarTodos
+      
+      
     }
   }
 }
 </script>
-
 <style scoped>
 </style>
