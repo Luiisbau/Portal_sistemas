@@ -98,6 +98,13 @@ export default {
         sortable: true,
       },
       {
+        name: "dpartamento",
+        label: "Departamento",
+        field: 'departamento',
+        align: "center",
+        sortable: true,
+      },
+      {
         name: "correo",
         label: "Correo",
         field: "correo",
