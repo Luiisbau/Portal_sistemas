@@ -58,8 +58,8 @@ export default {
     const nombreSeleccionado = ref('')
     const actualizar = ref(true)
 
-    const optionsTodos = ref(true)
-    const group =  ref([])
+    const optionsTodos = ref(false)
+    const group =  ref(['nperez', 'jpedroza', 'amagdaleno', 'vmerino'])
 
     const options =  [
         { label: 'nperez', value: 'nperez' },
@@ -72,6 +72,7 @@ export default {
     onMounted(async() => {
       await obtenerTodosAccesos()
       informacionAccesoFiltrado.value = informacionAcceso.value
+      filtrarNombre(group, informacionAccesoFiltrado, informacionAcceso, 'usuario')
     })
 
     const columns = [
