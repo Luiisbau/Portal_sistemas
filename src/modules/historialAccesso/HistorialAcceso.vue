@@ -3,28 +3,17 @@
     <h2>Historial de acceso</h2>
     <q-separator color="primary" class="q-my-md" inset />
   </div>
-  <div class="q-gutter-md q-mt-sm">
-    <q-row class= row>
-      <q-col class="q-pa-sm q-ml-sm">
-    <q-btn-dropdown color="primary" label="Programación">
-        <div>
-          <q-toggle v-model="selection" label="jpedroza" val="jpedroza"/>
-        </div>
-        <div>
-          <q-toggle v-model="selection" label="nperez" val="nperez"/>
-        </div>
-        <div>
-          <q-toggle v-model="selection" label="amagdaleno" val="amagdaleno"/>
-        </div>
-        <div>
-          <q-toggle v-model="selection" label="vmerino" val="vmerino"/>
-        </div>
+  <div class="q-gutter-md q-mt-sm q-ml-md">
+    <q-btn-dropdown color="primary" label="Filtrar usuarios">
+      <q-checkbox :disable="optionsTodos" v-model="optionsTodos" label="Todos" @update:model-value="seleccionarTodos" />
+      <q-option-group
+      :options="options"
+      type="checkbox"
+      v-model="group"
+      @update:model-value="filtrarTabla"
+    />
     </q-btn-dropdown>
-  </q-col>
-  <q-col class="q-pa-sm ">
-      <q-btn color="primary" label="Actualizar" :value="actualizar" @click="cambiarActualizar"  />
-  </q-col>
-  </q-row>
+      
   </div>
 
   <div class="q-pt-md q-px-md" >
@@ -69,28 +58,16 @@ export default {
     const nombreSeleccionado = ref('')
     const actualizar = ref(true)
 
-    watch(selection, (newVal, oldVal) => {
-      filtrarNombre(newVal, informacionAcceso, informacionAccesoFiltrado)
-    })
+    const optionsTodos = ref(true)
+    const group =  ref([])
 
-    const reset = () => {
-  informacionAccesoFiltrado.value = informacionAcceso.value
-  selection.value = ([])
-  const toggles = document.querySelectorAll('.q-toggle')
-  toggles.forEach(toggle => {
-    toggle.__vue__.value = false
-  })
-}
+    const options =  [
+        { label: 'nperez', value: 'nperez' },
+        { label: 'jpedroza', value: 'jpedroza' },
+        { label: 'amagdaleno', value: 'amagdaleno'},
+        { label: 'vmerino', value: 'vmerino'}
 
-const cambiarActualizar = () => {
-  actualizar.value = !actualizar.value
-  if (actualizar.value) {
-    reset()
-  } else {
-    selection.value = ['jpedroza', 'nperez', 'amagdaleno', 'vmerino']
-    filtrarNombre(selection.value, informacionAcceso, informacionAccesoFiltrado)
-  }
-}
+      ]
 
     onMounted(async() => {
       await obtenerTodosAccesos()
@@ -143,11 +120,22 @@ const cambiarActualizar = () => {
       
     ];
 
+  const filtrarTabla = () => {
+    optionsTodos.value = false
+    filtrarNombre(group, informacionAccesoFiltrado, informacionAcceso, 'usuario')
+
+  }
+
+  const seleccionarTodos = () => {
+    group.value = []
+    informacionAccesoFiltrado.value = informacionAcceso.value
+  }
+
     return {
       selection,
       filter: ref(''),
       pagination: {
-        sortBy: 'id',
+        sortBy: 'numero_empleado',
         descending: true,
         rowsPerPage: 10
       },
@@ -155,11 +143,13 @@ const cambiarActualizar = () => {
       informacionAccesoFiltrado,
       nombreSeleccionado,
       columns,
-      reset,
-      cambiarActualizar,
-      actualizar
+      group,
+      options,
+      filtrarTabla,
+      actualizar,
+      seleccionarTodos,
+      optionsTodos
       //ocultarTodos
-      
       
     }
   }
