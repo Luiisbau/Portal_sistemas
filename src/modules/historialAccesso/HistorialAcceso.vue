@@ -59,13 +59,13 @@ export default {
     const actualizar = ref(true)
 
     const optionsTodos = ref(false)
-    const group =  ref(['nperez', 'jpedroza', 'amagdaleno', 'vmerino'])
+    const group =  ref(['nperez', 'jpedroza', 'amagdaleno', 'ggalvan'])
 
     const options =  [
         { label: 'nperez', value: 'nperez' },
         { label: 'jpedroza', value: 'jpedroza' },
         { label: 'amagdaleno', value: 'amagdaleno'},
-        { label: 'vmerino', value: 'vmerino'}
+        { label: 'ggalvan', value: 'ggalvan'}
 
       ]
 
@@ -124,7 +124,6 @@ export default {
   const filtrarTabla = () => {
     optionsTodos.value = false
     filtrarNombre(group, informacionAccesoFiltrado, informacionAcceso, 'usuario')
-
   }
 
   const seleccionarTodos = () => {
