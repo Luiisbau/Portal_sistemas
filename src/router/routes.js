@@ -53,7 +53,15 @@ const routes = [
         label: 'Informacion de empresas',
         name: 'empresas',
         component: () => import(/* webpackChunkName: "" */'src/modules/empresas/Empresas.vue')
+      },
+      {
+        path:'usuariosNulos',
+        icono: 'no_accounts',
+        label: 'Usuarios nulos',
+        name: 'usuariosNulos',
+        component: () => import(/* webpackChunkName: "" */'src/modules/usuariosNulos/usuariosNulos.vue')
       }
+
     ]
   },
 

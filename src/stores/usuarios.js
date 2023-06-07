@@ -6,6 +6,7 @@ export const useUsuarioStore = defineStore("usuarios", () => {
 
     const usuariosFiltrado = ref([])
     const usuariosActivos = ref([])
+    const usuariosNulos = ref([])
 
       const obtenerUsuarios = async () => {
         try {
@@ -18,6 +19,8 @@ export const useUsuarioStore = defineStore("usuarios", () => {
                   value: empleado
                 }
               })
+
+              usuariosNulos.value = data.filter( e => e.idDepartamentoSucursal === null)
 
         } catch ( error ) {
 
@@ -52,6 +55,7 @@ export const useUsuarioStore = defineStore("usuarios", () => {
         usuariosActivos,
         obtenerUsuarios,
         editarUsuarios,
-        usuariosFiltrado
+        usuariosFiltrado,
+        usuariosNulos
       }
 })
