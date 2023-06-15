@@ -56,7 +56,7 @@ export default {
   },
   setup() {
     const useUsuario = useUsuarioStore();
-    const { cargando, usuariosActivosz } = storeToRefs(useUsuario);
+    const { cargando, usuariosActivos } = storeToRefs(useUsuario);
     const { obtenerUsuarios } = useUsuario;
 
     const modalUsuario = ref(null)
