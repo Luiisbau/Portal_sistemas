@@ -105,6 +105,13 @@ export default {
         sortable: true,
       },
       {
+        name: "dpartamento",
+        label: "centro de trabajo",
+        field: 'siglasCentroTrabajo',
+        align: "center",
+        sortable: true,
+      },
+      {
         name: "correo",
         label: "Correo",
         field: "correo",

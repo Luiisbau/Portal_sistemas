@@ -67,7 +67,7 @@ export default {
     const formulario = ref(null)
 
     const datosObjet =  reactive({
-        idUsuario: '',
+        numero_empleado: '',
         usuario: '',
         correo: ''
     })
@@ -85,7 +85,7 @@ export default {
     const edtiarUsuario = (usuarioAnterior) => {
       tipoModal.value = 'Editar'
       abrirModal.value = true;
-      datosObjet.idUsuario = usuarioAnterior.idUsuario
+      datosObjet.numero_empleado = usuarioAnterior.numero_empleado
       datosObjet.usuario = usuarioAnterior.usuario
       datosObjet.correo = usuarioAnterior.correo
 
