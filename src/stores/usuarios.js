@@ -5,27 +5,35 @@ import { ref } from 'vue'
 export const useUsuarioStore = defineStore("usuarios", () => {
 
     const usuariosFiltrado = ref([])
-    const usuariosActivos = ref([])
     const usuariosNulos = ref([])
+    const nombrePortal = ref('')
 
-      const obtenerUsuarios = async () => {
+    const usuariosActivos = ref([])
+    const totalUsuarios = ref([])
+    //const usuariosInactivos = ref([])
+
+        const obtenerUsuarios = async () => {
         try {
             const { data } = await api.get('/usuarios')
             usuariosActivos.value = [...data]
 
+      //     console.log(data)
+      //      usuariosInactivos.value = data.filter(usuario => !usuario.estatus)
+
             usuariosFiltrado.value = data.map(empleado => {
+
                 return {
-                  label: `${empleado.numero_empleado} - ${empleado.nombre} (${empleado.usuario})`,
+                  label: `${empleado.numeroEmpleado} - ${empleado.nombre}  (${empleado.usuario}) ` ,
                   value: empleado
                 }
               })
 
               usuariosNulos.value = data.filter( e => e.idDepartamentoSucursal === null)
 
-        } catch ( error ) {
+               } catch ( error ) {
 
           //console.log( error.response.msg )
-          
+
         } finally {
         }
       }
@@ -35,11 +43,11 @@ export const useUsuarioStore = defineStore("usuarios", () => {
             await api.put('/usuarios', usuario )
             const posicion =  usuariosActivos.value.findIndex(element => element.idUsuario === usuario.idUsuario)
             usuariosActivos.value[posicion].usuario = usuario.usuario;
-            usuariosActivos.value[posicion].correo = usuario.correo; 
+            usuariosActivos.value[posicion].correo = usuario.correo;
 
             usuariosFiltrado.value = usuariosActivos.value.map(empleado => {
               return {
-                label: `${empleado.numero_empleado} - ${empleado.nombre} (${empleado.usuario})`,
+                label: `${empleado.numeroEmpleado} - ${empleado.nombre}   (${empleado.usuario})`,
                 value: empleado
               }
             })
@@ -52,10 +60,16 @@ export const useUsuarioStore = defineStore("usuarios", () => {
       }
 
       return {
+        //state
         usuariosActivos,
-        obtenerUsuarios,
-        editarUsuarios,
+       // usuariosInactivos,
         usuariosFiltrado,
-        usuariosNulos
+        usuariosNulos,
+        nombrePortal,
+        totalUsuarios,
+
+        //methods
+        obtenerUsuarios,
+        editarUsuarios
       }
 })

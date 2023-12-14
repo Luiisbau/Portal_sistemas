@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { api } from 'src/boot/axios'
 import { ref } from 'vue'
 
+
 export const useSucursalesStore = defineStore("sucursales", () => {
     // state de portales
     const sucursales = ref([])
@@ -24,6 +25,8 @@ export const useSucursalesStore = defineStore("sucursales", () => {
             //console.log( error )
         }
     }
+
+
     const agregarSucursal = async (sucursal) => {
         try {
             const { data } = await api.post('/sucursales', sucursal)
@@ -45,10 +48,11 @@ export const useSucursalesStore = defineStore("sucursales", () => {
 
     return {
         sucursales,
+        listaSucursales,
+
         obtenerSucursales,
         agregarSucursal,
-        asignarDepartamento,
-        listaSucursales
+        asignarDepartamento
 
     }
 })

@@ -81,7 +81,7 @@ export default {
     };
 
     const nuevoPortal = () => {
-      tipoModal.value = 'Agregar' 
+      tipoModal.value = 'Agregar'
       nombrePortal.value = ''
       abrirModal.value = true;
     };

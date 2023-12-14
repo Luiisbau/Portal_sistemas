@@ -8,27 +8,27 @@
       <div class="contenedor-tarjetas-portales">
         <q-card v-for="(item)  in portalesPermisos" :key="item">
             <q-card-section>
-              
+
               <div class="titulo-tarjetas">
                 <div align="center">
                 <h4>{{ item.nombrePortal }}</h4>
               </div>
               </div>
-              
+
                 <div class="q-pa-sm">
                 <q-btn size="sm" color="primary" round icon="add" @click="nuevoPermiso(item)"></q-btn>
               </div>
-              
+
                 <q-table
                 title="Usuarios Registrados"
                 :rows="item.permisosPortales"
                 :columns="columns"
                  row-key="name">
-                 
+
 
                  <template v-slot:body-cell-acciones="props">
             <q-td>
-              
+
               <q-btn
                 @click="eliminarPermiso(props.row)"
                 flat
@@ -39,10 +39,10 @@
               </q-btn>
             </q-td>
           </template>
-          <template v-slot:body-cell-numero_empleado="props">
+          <template v-slot:body-cell-numeroEmpleado="props">
             <q-td align="center">
               <div>
-                {{   props.row.usuario.numero_empleado }}
+                {{   props.row.usuario.numeroEmpleado }}
               </div>
             </q-td>
           </template>
@@ -67,7 +67,7 @@
             </q-card-section>
         </q-card>
       </div>
-  
+
     </div>
     <ModalPermisos ref="modalPermisos"></ModalPermisos>
     <ModalEliminarUsuario ref="modalEliminarPermiso"></ModalEliminarUsuario>
@@ -89,7 +89,7 @@ export default {
   setup() {
     const usePortales = usePortalesStore()
     const { portalesPermisos } = storeToRefs(usePortales)
-    
+
     const columns = [
     {
         name: "id",
@@ -99,7 +99,7 @@ export default {
         sortable: true,
       },
       {
-        name: "numero_empleado",
+        name: "numeroEmpleado",
         label: "No. empleado",
         align: "center",
         sortable: true,
@@ -116,7 +116,7 @@ export default {
         align: "left",
         sortable: true,
       },
-      
+
       {
         name: "acciones",
         field: "acciones",
@@ -124,7 +124,7 @@ export default {
         sortable: true,
       },
     ];
-  
+
     const modalPermisos = ref(null);
     const modalEliminarPermiso = ref(null);
 
@@ -152,7 +152,7 @@ export default {
 
 @mixin adaptar( $tamanio ) {
     @media ( min-width:$tamanio ) {
-        @content;   
+        @content;
     }
 }
 

@@ -13,7 +13,7 @@
       @update:model-value="filtrarTabla"
     />
     </q-btn-dropdown>
-      
+
   </div>
 
   <div class="q-pt-md q-px-md" >
@@ -87,7 +87,7 @@ export default {
         name: "noEmpleado",
         label: "No. Empleado",
         align: "center",
-        field: informacionAcceso => informacionAcceso.usuario.numero_empleado,
+        field: informacionAcceso => informacionAcceso.usuario.numeroEmpleado,
       },
       {
         name: "usuario",
@@ -118,7 +118,7 @@ export default {
         sortable: true,
       },
 
-      
+
     ];
 
   const filtrarTabla = () => {
@@ -135,7 +135,7 @@ export default {
       selection,
       filter: ref(''),
       pagination: {
-        sortBy: 'numero_empleado',
+        sortBy: 'numeroEmpleado',
         descending: true,
         rowsPerPage: 10
       },
@@ -150,7 +150,7 @@ export default {
       seleccionarTodos,
       optionsTodos
       //ocultarTodos
-      
+
     }
   }
 }

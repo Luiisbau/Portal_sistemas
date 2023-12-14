@@ -38,45 +38,24 @@
 
     </q-header>
 
-
-
-
-    <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered>
-
+    <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered :width="270">
       <!-- drawer content -->
-
-      <div class="row justify-center contenedor-menu">
-
-        <q-img src="../img/banner.jpg" id="target-img-1" style="height: 100px">
-
-          <div class="absolute-bottom-right" style="border-top-left-radius: 5px">
-
-            <q-avatar class="avatar">
-
-              <!-- <img src="../img/yo.png" /> -->
-
-              {{ inicialesUsuarios || null }}
-
-              <!-- {{ usuarioAutenticado?.nombre }} -->
-
-              <span style="font-weight: bold"></span>
-
-            </q-avatar>
-
-            {{ usuarioAutenticado?.nombre }}
-            <span style="font-weight: bold"></span>
-
-          </div>
-
-        </q-img>
-
+      <div class="contenedor-perfil">
+        <div style="background-color: rgba(0, 0, 0, 0.5);" class="q-px-md q-py-sm">
+            <div style="display: flex; justify-content: center;">
+              <q-avatar size="7rem">
+                <q-img
+                  :src="calcularURLFoto(usuarioAutenticado?.numero_empleado)"
+                  spinner-color="white"/>
+              </q-avatar>
+            </div>
+            <div style="display: flex; justify-content: center; " >
+              {{ usuarioAutenticado?.nombre }}
+            </div>
+        </div>
       </div>
       <NavBar></NavBar>
-
     </q-drawer>
-
-
-
 
     <q-page-container>
 
@@ -89,6 +68,7 @@
 
 
 <script>
+import { calcularURLFoto } from "src/helpers/formatearString";
 import { ref, onMounted, computed } from "vue";
 import { useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
@@ -101,48 +81,46 @@ import { useInformacionAccesoStore } from "src/stores/informacionAccesos";
 import { useSucursalesStore } from 'src/stores/sucursales'
 import { useEmpresasStore } from "src/stores/empresas";
 import { useDepartamentosStore } from "src/stores/departamento";
+import { useDashboardStore } from "src/stores/dashboard";
 export default {
   components: {
     NavBar,
   },
   setup() {
     const leftDrawerOpen = ref(false);
-    
-    const useUsuario = useUsuarioStore()
-    const { obtenerUsuarios } = useUsuario;
-    
+
     const useAutenticacion = useAutenticacionStore();
     const { cerrarSesion } = useAutenticacion;
     const { usuarioAutenticado } = storeToRefs(useAutenticacion);
 
     const usePermiso = usePermisoStore()
     const { obtenerPermisos } = usePermiso;
-    
+
     const useAccesos = useInformacionAccesoStore();
     const { obtenerTodosAccesos} = useAccesos
-    
-    const usePortal = usePortalesStore()
-    const { obtenerPortales } = usePortal
 
     const useSucursales = useSucursalesStore()
     const { obtenerSucursales } = useSucursales
 
-    const useEmpresas = useEmpresasStore()
-    const {obtenerEmpesas} = useEmpresas
-    
     const useDepartamentos = useDepartamentosStore()
     const {obtenerDepartamentos} = useDepartamentos
+
+    const useDashboard = useDashboardStore();
+    const { obtenerUsuarios, obtenerPortales } = useDashboard;
+
+    const useEmpresas = useEmpresasStore();
+    const { obtenerEmpresas } = useEmpresas;
 
     const router = useRouter();
 
     onMounted(() => {
-      obtenerPortales()
-      obtenerUsuarios()
       obtenerPermisos()
       obtenerSucursales()
-      obtenerEmpesas()
       obtenerDepartamentos()
       obtenerTodosAccesos()
+      obtenerUsuarios();
+      obtenerEmpresas();
+      obtenerPortales();
     })
 
     const logout = () => {
@@ -167,6 +145,7 @@ export default {
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value;
       },
+      calcularURLFoto
     };
   },
 };

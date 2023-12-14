@@ -75,16 +75,8 @@ export default {
         field: "abreviacion",
         sortable: true,
       },
-      {
-        name: "nombre",
-        label: "Nombre",
-        align: "center",
-        field: "correoDistribucion",
-        sortable: true,
-      },
-      
 
-      
+
     ]
 
     const abrirModal = () =>{
@@ -109,13 +101,14 @@ export default {
       sucursales,
       columns,
       modalSucursal,
-      abrirModal,
-      abrirModalDepartamento,
       modalDepartamento,
       modalDepartamentoSucursal,
+      modalEmpresa,
+
       abrirDepartamentoSucursal,
       abrirModalEmpresa,
-      modalEmpresa
+      abrirModal,
+      abrirModalDepartamento
     }
   }
 }

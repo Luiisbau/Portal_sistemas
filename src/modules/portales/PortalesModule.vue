@@ -2,7 +2,7 @@
   <q-layout>
     <q-page-container>
       <div class="q-pa-md">
-        <h2>Portales</h2>
+        <h2>{{ nombrePortal }}</h2>
         <div>
           <q-btn
             icon-right="note_add"
@@ -47,6 +47,7 @@
 <script>
 import { usePortalesStore } from "../../stores/portales";
 import { formatDate } from "../../helpers/formatearFecha";
+import { useUsuarioStore } from "../../stores/usuarios";
 import ModalPortales from "../../components/ModalPortales.vue";
 import ModalEliminarPortal from "src/components/ModalEliminarPortal.vue";
 import { ref, onMounted } from "vue";
@@ -58,6 +59,11 @@ export default {
     ModalEliminarPortal
   },
   setup() {
+
+    const useUsuario = useUsuarioStore();
+    const { cargando, usuariosActivos, nombrePortal } = storeToRefs(useUsuario);
+    const { obtenerUsuarios } = useUsuario;
+
     const usePortal = usePortalesStore();
     const { portales } = storeToRefs(usePortal);
     const {  obtenerPortales } = usePortal;
@@ -94,6 +100,11 @@ export default {
       },
     ];
 
+    onMounted(() => {
+      nombrePortal.value = 'Modulo portales'
+      obtenerUsuarios();
+    });
+
     const nuevoPortal = () => {
       modalPortal.value.nuevoPortal()
     };
@@ -110,6 +121,7 @@ export default {
     });
 
     return {
+      nombrePortal,
       columns,
       portales,
       editarPortal,

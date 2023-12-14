@@ -15,7 +15,7 @@
         >
           <template v-slot:top>
             <div class="fit row q-gutter-sm">
-              
+
               <div class="col-6">
                 <q-input
                   outlined
@@ -43,13 +43,13 @@
     </q-layout>
     <modal-editar-usuario ref="modalUsuario"></modal-editar-usuario>
   </template>
-  
+
   <script>
   import { onMounted, ref } from "vue";
   import { useUsuarioStore } from "../../stores/usuarios";
   import { storeToRefs } from "pinia";
   import ModalEditarUsuario from "src/components/ModalEditarUsuario.vue";
-  
+
   export default {
     components:{
       ModalEditarUsuario
@@ -58,7 +58,7 @@
       const useUsuario = useUsuarioStore();
       const { cargando, usuariosActivos, usuariosNulos } = storeToRefs(useUsuario);
       const { obtenerUsuarios } = useUsuario;
-  
+
       const modalUsuario = ref(null)
       const columns = [
       {
@@ -69,10 +69,10 @@
           sortable: true,
         },
         {
-          name: "numero_empleado",
+          name: "numeroEmpleado",
           label: "Numero de empleado",
           field: (row) =>
-            row.numero_empleado ? row.numero_empleado : "Sin numero de empleado",
+            row.numeroEmpleado ? row.numeroEmpleado : "Sin numero de empleado",
           align: "center",
           sortable: true,
         },
@@ -147,16 +147,16 @@
           sortable: true,
         },
       ];
-  
+
       onMounted(() => {
         console.log(usuariosActivos)
         obtenerUsuarios();
       });
-  
+
       const editarUsuario = (data) =>{
         modalUsuario.value.edtiarUsuario(data)
       }
-  
+
       return {
         pagination: {
           sortBy: 'id',
@@ -174,6 +174,6 @@
     },
   };
   </script>
-  
+
   <style>
   </style>

@@ -7,7 +7,25 @@
     gap: 1.5rem;
     @include adaptar(768px) {
        grid-template-columns: repeat( 2,1fr );
-    
+
+    }
+    .card-section {
+      background-color: #1052A0;
+      color: white;
+      text-align: center;
+      height: 8rem;
+
+    }
+    .horizontal-flex {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .card-section h4 {
+      /* Estilos para el elemento <h4> dentro de .card-section */
+      /* Agrega los estilos que desees aquí */
+      text-align: center;
+      margin-bottom: 100rem; /* Por ejemplo, ajusta el margen inferior según tus necesidades */
     }
 
     .contenido-card {
@@ -16,6 +34,13 @@
       align-items: center;
       justify-content: center;
 
+
+
+      h5 {
+        text-align: center  ;
+        color: #000000;
+        font-size: 2rem;
+      }
       h3 {
         text-align: center;
       }
@@ -23,7 +48,35 @@
         font-size: 4rem;
       }
       p {
-        font-size: 2.5rem;
+        font-size: 3rem;
       }
     }
 }
+/* Estilos para el contenedor principal */
+.q-pa-md.flex.flex-center {
+  position: relative;
+  display: inline-flex;
+  align-items: flex-start; /* Cambia de "center" a "flex-start" para alinear arriba */
+}
+
+/* Estilos para el círculo de progreso */
+.q-circular-progress {
+  color:#1052A0;
+  margin-top: -3rem;
+}
+
+/* Estilos para el contenido que debe estar dentro del círculo */
+.circle-content {
+  position: absolute;
+  top: 10; /* Alinea en la parte superior del círculo */
+  left: 10; /* Alinea en la parte izquierda del círculo */
+  width: 100%; /* Ocupa todo el ancho del círculo */
+  height: 100%; /* Ocupa todo el alto del círculo */
+  display: flex;
+  align-items: center; /* Alinea verticalmente al centro */
+  justify-content: center; /* Alinea horizontalmente al centro */
+  font-size: 2.5rem; /* Tamaño de fuente personalizado para el número */
+  color: #1052A0; /* Color de fuente personalizado para que coincida con el círculo */
+  margin-top: -4rem; /* Ajusta el margen superior para subir el número */
+}
+

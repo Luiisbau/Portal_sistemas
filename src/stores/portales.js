@@ -17,7 +17,7 @@ export const usePortalesStore = defineStore("portales", () =>  {
             portales.value = [ ...portalesExternos ]
             portalesPermisos.value = [...data]
         } catch (error) {
-            
+
             //console.log( error )
         }
     }
@@ -26,7 +26,7 @@ export const usePortalesStore = defineStore("portales", () =>  {
        const  {data} =   await api.post('/portales', { nombrePortal: portal })
         portales.value = [ data, ...portales.value ]
         } catch (error) {
-            
+
             //console.log( error )
         }
     }
@@ -35,7 +35,7 @@ export const usePortalesStore = defineStore("portales", () =>  {
             await api.delete(`/portales/${ portal.idPortal }`)
             portales.value = portales.value.filter( portalBusqueda => portalBusqueda.idPortal !== portal.idPortal )
         } catch (error) {
-            
+
             //console.log( error )
         }
     }
@@ -47,7 +47,7 @@ export const usePortalesStore = defineStore("portales", () =>  {
             await api.put(`/portales/${ portal.portal.idPortal }`, {nombre : portal.nombre})
             portales.value[posicion].nombrePortal = portal.nombre
         } catch (error) {
-            
+
             //console.log( error )
         }
     }
